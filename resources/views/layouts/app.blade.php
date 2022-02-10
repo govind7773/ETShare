@@ -23,6 +23,7 @@
                 display:none;
             }
     }</style>
+    @yield('pageCss')
 </head>
 <body >
 <nav class="navbar-expand-sm bg-dark navbar navbar-dark sticky-top navbar-inverse">
@@ -106,7 +107,6 @@
     </div>
 </div>
 </body>
-
 <script>
     $(document).ready(function(){
      $('#bar_button').click(function(){
@@ -117,6 +117,6 @@
         }
     }) ;
 });
-   
 </script>
+@yield('pageJs')
 </html>
