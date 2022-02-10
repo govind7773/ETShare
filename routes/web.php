@@ -24,3 +24,11 @@ Route::get('/register', function () {
 Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
+
+/******* clusters ***********/
+Route::prefix('cluster/')->group(function(){
+// all post and get requests will be handled here
+
+});
+Route::resource('cluster','ClusterController');
+

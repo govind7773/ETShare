@@ -63,44 +63,40 @@
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
+                        <a href="/" class="nav-link align-middle px-0">
                         <i class="fas fa-home"></i><span class="ms-1 d-sm-inline">Home</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link align-middle px-0">
-                        <i class="fas fa-plus"></i><span class="ms-1 d-sm-inline">New Panel</span>
+                        <i class="fa-solid fa-layer-group"></i><span class="ms-1 d-sm-inline">Join Cluster</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('cluster.create')}}" class="nav-link align-middle px-0">
+                        <i class="fas fa-plus"></i><span class="ms-1 d-sm-inline">New Cluster</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                        <i class="fa fa-list"></i> <span class="ms-1 d-sm-inline">Panels</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-sm-inline">Product</span> 1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-sm-inline">Product</span> 2</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-sm-inline">Product</span> 3</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-sm-inline">Product</span> 4</a>
-                            </li>
-                        </ul>
+                        <a href="/cluster" class="nav-link px-0 align-middle">
+                        <i class="fa fa-list"></i> <span class="ms-1 d-sm-inline">Clusters</span> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link align-middle px-0">
+                        <i class="fas fa-info"></i><span class="ms-1 d-sm-inline">Help</span>
+                        </a>
                     </li>
                 </ul>  
             </div>
         </div>
-        <div class="col py-5 px-5">
+        <div class="col py-3 px-3">
             @yield('content')
             <footer class="fixed-bottom bg-dark text-white">
                 <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2 float-right fs-6"><span
                             class="float-md-left d-block d-md-inline-block px-2">Copyright  &copy; 2022 <a
                                 class="text-bold-800 grey darken-2 px-2"
                                 href="" target="_blank">ETShare</a><span
-                            class="float-md-right d-block d-md-inline-blockd-none d-lg-block px-2"> Hand-crafted & Made with <i class="fas fa-heart"></i></span>
+                            class="float-md-right d-block d-md-inline-blockd-none d-lg-block px-2"> made with <i class="fas fa-heart"></i></span>
                 </p>
             </footer>
         </div>
