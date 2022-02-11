@@ -18,7 +18,9 @@ class ClusterController extends Controller
     public function index(){
         $user_id = Auth::id();
         $data= DB::table('clusters')
-                    ->where('user_id',$user_id)
+                    ->selectRaw('clusters.id as id,clusters.name as name,clusters.section as section, users.name as user_name')
+                    ->leftJoin('users', 'clusters.user_id', '=', 'users.id')
+                    ->where('clusters.user_id',$user_id)
                     ->get();
         return view('cluster.index',['data' => $data]);
     }
@@ -29,6 +31,20 @@ class ClusterController extends Controller
     public function create()
     {
        return view('cluster.create');
+    }
+    /**
+     * Show the information of individual cluster.
+     */
+    public function show($cluster){
+        $user_id = Auth::id();
+        $data= DB::table('clusters')
+                    ->selectRaw('clusters.id as id,clusters.name as name,clusters.section as section, users.name as user_name')
+                    ->leftJoin('users', 'clusters.user_id', '=', 'users.id')
+                    ->where('clusters.user_id',$user_id)
+                    ->where('clusters.id',$cluster)
+                    ->get();
+                    // return $data;
+        return view('cluster.view',['data'=>$data]);
     }
     /**Store the data within database tables
      * 
@@ -49,4 +65,18 @@ class ClusterController extends Controller
            
         return redirect('/cluster');
     }
+    /***********
+     * below function is used to store file in laravel public folder and messages in the database
+     */
+    public function ajaxMessageSend(Request $request)
+    {
+            $validatedData = $request->validate([
+                'message' => ['required'],
+                'input_file' => ['sometimes'],
+                'sender' => ['exists:users,id'],
+                'cluster_id' => ['exists:clusters,id']
+            ]);
+            return redirect('/cluster');
+    }
+
 }

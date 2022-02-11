@@ -1,0 +1,8 @@
+.cluster-body{
+    width: 50%;
+}
+@media screen and (max-width: 500px) {
+    .cluster-body{
+            width: 75%;
+        }
+}

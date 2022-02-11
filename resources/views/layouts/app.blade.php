@@ -96,7 +96,7 @@
                             class="float-md-left d-block d-md-inline-block px-2">Copyright  &copy; 2022 <a
                                 class="text-bold-800 grey darken-2 px-2"
                                 href="" target="_blank">ETShare</a><span
-                            class="float-md-right d-block d-md-inline-blockd-none d-lg-block px-2"> made with <i class="fas fa-heart"></i></span>
+                            class="float-md-right d-md-inline-blockd-none d-lg-block px-2"> made with <i class="fas fa-heart"></i></span>
                 </p>
             </footer>
         </div>
