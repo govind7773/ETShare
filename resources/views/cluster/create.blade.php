@@ -3,7 +3,7 @@
 <div class="container ">
     <div class="row justify-content-center">
         <div class="col-md-8">
-                <div class="card border border-2 border-dark">
+                <div class="card border border-2 border-dark shadow-lg">
                     <div class="card-header font-large-1"><h1 class="text-center">Create Cluster</h1></div>
                     <div class="card-body">
                         @if ($errors->any())

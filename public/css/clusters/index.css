@@ -1,8 +1,11 @@
 .cluster-body{
-    width: 50%;
+    width: 75%;
 }
-@media screen and (max-width: 500px) {
-    .cluster-body{
-            width: 75%;
-        }
+.cards {
+    transition: all 0.2s ease;
+    cursor: pointer
+}
+.cards:hover{
+    box-shadow:5px 4px 10px 6px #888888;
+    font-size: large;
 }
