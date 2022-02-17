@@ -1,6 +1,3 @@
-.cluster-body{
-    width: 75%;
-}
 .cards {
     transition: all 0.2s ease;
     cursor: pointer
@@ -8,4 +5,8 @@
 .cards:hover{
     box-shadow:5px 4px 10px 6px #888888;
     font-size: large;
+}
+.cluster_body{
+    background-color: black;
+    width: 75%;
 }

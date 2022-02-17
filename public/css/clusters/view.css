@@ -1,0 +1,22 @@
+.cluster_heading{
+    background-color: black;
+}
+#input_box{
+    background-color: black;
+}
+#input_file{
+    background-color: transparent;   
+}
+#message{
+    background-color: transparent;   
+    color: white;
+}
+#content_box{
+    border: 2px solid black;
+}
+.btn01:hover{
+    background-color: rgb(42 54 41);
+}
+.btn02:hover{
+    background-color: rgb(70 41 41);
+   }

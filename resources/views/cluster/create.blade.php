@@ -1,10 +1,13 @@
 @extends('layouts.app')
+@section('pageCss')
+<link rel="stylesheet" href="{{asset('css/clusters/create.css')}}">
+@endsection
 @section('content')
 <div class="container ">
     <div class="row justify-content-center">
         <div class="col-md-8">
-                <div class="card border border-2 border-dark shadow-lg">
-                    <div class="card-header font-large-1"><h1 class="text-center">Create Cluster</h1></div>
+                <div class="card create_card">
+                    <div class="card-header font-large-1 border-bottom"><h1 class="text-center">Create Cluster</h1></div>
                     <div class="card-body">
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -21,7 +24,7 @@
                                 <label for="cname"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Cluster Name') }}</label>
                                 <div class="col-md-6">
-                                    <input id="cname" type="text"
+                                    <input id="cname" type="text" placeholder="enter text here .."
                                            class=" form-control " name="cname" required>
                                     <small id="nameHelp" class="form-text text-muted"> Enter an appropriate name for the cluster
                                     </small>
@@ -36,7 +39,7 @@
                                 <label for="section"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Enter Section') }}</label>
                                 <div class="col-md-6">
-                                    <input id="section" type="text"
+                                    <input id="section" type="text" placeholder="enter text here .."
                                            class=" form-control " name="section" >
                                     <small id="sectionHelp" class="form-text text-muted"> Enter class section or year
                                     </small>
@@ -45,7 +48,7 @@
                             <input readonly id="creator" type="text" value="{{auth()->id()}}" class="hidden"
                                    name="creator" hidden>
                             <div class="form-group row m-auto justify-content-center ">
-                                    <button type="submit" class="btn btn-primary col-3">
+                                    <button type="submit" class="btn btn-primary col-auto">
                                         {{ __('Create Now') }}
                                     </button>
                             </div>

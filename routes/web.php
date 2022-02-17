@@ -28,6 +28,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 /******* clusters ***********/
 Route::prefix('cluster/')->group(function(){
 // all post and get requests will be handled here
+    Route::get('downloadFileContent/{id}','ClusterController@downloadFileContent');
+    Route::get('removeFile/{id}','ClusterController@removeFile');
+    /*****post requests */
     Route::post('ajaxMessageSend', 'ClusterController@ajaxMessageSend');
 
 });

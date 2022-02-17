@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito); 
 
 /*!
  * Bootstrap v4.6.1 (https://getbootstrap.com/)
@@ -10962,3 +10962,12 @@ a.text-dark:focus {
   }
 }
 
+#left_menu{
+  background-color: black;
+}
+#top_nav{
+  background-color: black;
+}
+#footer_div{
+  background-color: black;
+}

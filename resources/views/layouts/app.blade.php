@@ -9,6 +9,7 @@
     <title>{{ config('app.name', 'ETShare') }}</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/style.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,18 +19,29 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>@media screen and (max-width: 500px) {
+    <style>@media screen and (max-width: 750px) {
         #left_menu{
                 display:none;
             }
-    }</style>
+    }
+    #loading {
+        background: url("{{asset('loader.gif')}}") no-repeat center rgba(0,0,0,0.8);
+            opacity: 0.8;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 9999999;
+        }
+    </style>
     @yield('pageCss')
 </head>
-<body >
-<nav class="navbar-expand-sm bg-dark navbar navbar-dark sticky-top navbar-inverse">
+<body class="bg-dark">
+<nav class="navbar-expand-sm navbar navbar-dark sticky-top navbar-inverse" id="top_nav">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand fs-4 py-0 px-3" href="#">ETShare <i class="fa-solid fa-bars text-white pl-3" id="bar_button"></i></a>
+            <a class="navbar-brand fs-4 py-0 px-3 text-white" href="#">ETShare <i class="fa-solid fa-bars text-white pl-3" id="bar_button"></i></a>
         </div>
         <div class="dropdown nav navbar-nav navbar-right">
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -55,7 +67,7 @@
 </nav>
 <div class="container-fluid"> 
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark sticky-left" id="left_menu">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sticky-left" id="left_menu">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                 <a href="/" class="d-flex align-items-center mb-md-0 me-md-auto text-white text-decoration-none pb-3"><img src="{{asset('logo.png')}}" alt=""  width="60" height="60" class="rounded-circle ml-2">
                 </a>
@@ -87,9 +99,9 @@
                 </ul>  
             </div>
         </div>
-        <div class="col py-3 px-3">
+        <div class="col py-3">
             @yield('content')
-            <footer class="fixed-bottom bg-dark text-white">
+            <footer class="fixed-bottom text-white" id="footer_div">
                 <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2 float-right fs-6"><span
                             class="float-md-left d-block d-md-inline-block px-2">Copyright  &copy; 2022 <a
                                 class="text-bold-800 grey darken-2 px-2"
@@ -110,6 +122,7 @@
             $('#left_menu').fadeOut();
         }
     }) ;
+   
 });
 </script>
 @yield('pageJs')
