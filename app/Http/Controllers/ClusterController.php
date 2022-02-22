@@ -21,8 +21,10 @@ class ClusterController extends Controller
         $data= DB::table('clusters')
                     ->selectRaw('clusters.id as id,clusters.name as name,clusters.section as section, users.name as user_name')
                     ->leftJoin('users', 'clusters.user_id', '=', 'users.id')
-                    ->where('clusters.user_id',$user_id)
+                    ->leftJoin('clusters_users','clusters.id','=','clusters_users.cluster_id')
+                    ->where('clusters_users.invited_user',$user_id)
                     ->get();
+  
         return view('cluster.index',['data' => $data]);
     }
 
@@ -33,27 +35,39 @@ class ClusterController extends Controller
     {
        return view('cluster.create');
     }
+    /*****
+     * function render a join page
+     */
+    public function JoinNow(){
+        return view('cluster.join');
+    }
     /**
      * Show the information of individual cluster.
      */
     public function show($cluster){
-        $user_id = Auth::id();
+        // $user_id = Auth::id();
         $view_data = [];
         $view_data[0]= DB::table('clusters')
-                    ->selectRaw('clusters.id as id,clusters.name as name,clusters.section as section, users.name as user_name')
+                    ->selectRaw('clusters.id as id,clusters.name as name,clusters.section as section, users.name as user_name, clusters.unique_id as share_id')
                     ->leftJoin('users', 'clusters.user_id', '=', 'users.id')
-                    ->where('clusters.user_id',$user_id)
                     ->where('clusters.id',$cluster)
                     ->get();
         $view_data[1] = DB::table('content_clusters')
-                    ->selectRaw('content_clusters.id as id,content_clusters.message as message,content_clusters.content as content, content_clusters.created_at as create_time,users.name as sender_name')
+                    ->selectRaw('content_clusters.id as id,content_clusters.message as message,content_clusters.content as content, content_clusters.created_at as create_time,users.name as sender_name, users.id as sender_id')
                     ->leftJoin('clusters','content_clusters.cluster_id','=','clusters.id')
                     ->leftJoin('users','content_clusters.sender_id','=','users.id')
                     ->where('clusters.id',$cluster)
                     ->get();
+        $view_data[2] = DB::table('users')
+                    ->selectRaw('users.id as id,users.name as name,users.email as email')
+                    ->leftJoin('clusters_users','clusters_users.invited_user','=','users.id')
+                    ->where('clusters_users.cluster_id',$cluster)
+                    ->get();
         //  return $view_data;
         return view('cluster.view',['data'=>$view_data]);
     }
+
+
     /**Store the data within database tables
      * 
      */
@@ -64,15 +78,25 @@ class ClusterController extends Controller
             'section' => ['string', 'max:255'],
             'creator' =>['exists:users,id']
         ]);
+        $uniq_id = substr($validatedData['cname'],0,1);
         $nwcluster = Cluster::create([
             'name' => $validatedData['cname'],
             'section' => $validatedData['section'],
             'user_id' => $validatedData['creator'],
-            'unique_id'=> $validatedData['cname'].time()
+            'unique_id'=> $uniq_id.$validatedData['creator'].time()
         ]);
+        if($nwcluster){
+            $newrecord = DB::table('clusters_users')
+                        ->insert([
+                            'cluster_id' => $nwcluster->id,
+                            'invited_user' => $nwcluster->user_id
+                        ]);
+        }
            
         return redirect('/cluster');
     }
+
+
     /***********
      * below function is used to store file in laravel public folder and messages in the database
      */
@@ -97,6 +121,8 @@ class ClusterController extends Controller
 
             return redirect('/cluster/'.$validatedData['cluster_id']);          
     }
+
+
     /***********
      * below function is used to handaled ajax request to download file content from the application
      */
@@ -106,6 +132,11 @@ class ClusterController extends Controller
         return Response()->download($filepath);
 
     }
+
+
+    /*******
+     *  removefile funtion delete the content from the laravel public folder and also from the database
+     */
     public function removeFile($file_id){
         $file_name= DB::table('content_clusters')
                     ->select('content_clusters.content as content')
@@ -114,8 +145,6 @@ class ClusterController extends Controller
 
         $file_path = public_path()."/uploadedFile/".$file_name[0]->content;
             unlink($file_path);
-
-
 
         $c_id = DB::table('content_clusters')
                     ->select('content_clusters.cluster_id as cluster_id')
@@ -127,4 +156,26 @@ class ClusterController extends Controller
                     ->delete();
         return redirect('/cluster/'.$c_id[0]->cluster_id); 
     }
+
+
+    /*********
+     * joinClusterNow function take the form data and add a new user to cluster_user table
+     */
+    public function joinClusterNow(Request $request){
+        $validatedData = $request->validate([
+            'cluster_code' => ['required','string','max:255'],
+            'new_user' =>['exists:users,id']
+        ]);
+        $cluster_id = DB::table('clusters')
+                        ->select('clusters.id as cluster_id')
+                        ->where('clusters.unique_id',$validatedData['cluster_code'])
+                        ->get();
+        $insertedData = DB::table('clusters_users')
+                        ->insert([
+                            'cluster_id' => $cluster_id[0]->cluster_id,
+                            'invited_user' => $validatedData['new_user']
+                        ]);
+        return redirect('/cluster');
+    }
+
 }

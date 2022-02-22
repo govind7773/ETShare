@@ -49,7 +49,6 @@
                         <span class="d-none d-sm-inline mx-1">Welcome {{ Auth::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark  shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item text-dark" href="#">Edit Profile</a></li>
                         <li> <a class="dropdown-item text-dark" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -78,7 +77,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
+                        <a href="/cluster/join" class="nav-link align-middle px-0">
                         <i class="fa-solid fa-layer-group"></i><span class="ms-1 d-sm-inline">Join Cluster</span>
                         </a>
                     </li>
@@ -103,10 +102,8 @@
             @yield('content')
             <footer class="fixed-bottom text-white" id="footer_div">
                 <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2 float-right fs-6"><span
-                            class="float-md-left d-block d-md-inline-block px-2">Copyright  &copy; 2022 <a
-                                class="text-bold-800 grey darken-2 px-2"
-                                href="" target="_blank">ETShare</a><span
-                            class="float-md-right d-md-inline-blockd-none d-lg-block px-2"> made with <i class="fas fa-heart"></i></span>
+                            class="float-md-left d-block d-md-inline-block px-2">Copyright  &copy; 2022 | ETShare<span
+                            class="float-md-right d-md-inline-blockd-none d-lg-block px-2">| made with <i class="fas fa-heart"></i> by Govind Singh</span>
                 </p>
             </footer>
         </div>

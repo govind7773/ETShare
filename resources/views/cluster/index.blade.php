@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="{{asset('css/clusters/index.css')}}">
 @endsection
 @section('content')
+<div class="loadling"></div>
 <div class="container border-2 border-dark border bg-dark shadow-sm ">
     <div class="row justify-content-center d-flex flex-column">
         <h1 class="my-4 fw-bold border-bottom border-white text-white">List of Cluster's</h1>
@@ -22,4 +23,5 @@
 
 @endsection
 @section('pageJs')
+<script src="{{asset('js/clusters/index.js')}}"></script>
 @endsection

@@ -29,7 +29,10 @@
     <h4 class="text-center my-0 text-white-50">Create or Join a new cluster and start sharing files and assignments with team.</h4>
     <h4 class="text-center my-0 text-white-50">Easy to send, download and share content with friends, group members and student's.</h4>
     <h4 class="text-center my-0 text-white-50">Let's start</h4>
-    <div class="row justify-content-center"><a href="{{route('cluster.create')}}" class="text-decoration-none text-white col-auto "><h4 id="btn01" class="text-center border p-2 col-auto m-2 rounded">Create Now</h4></a></div> 
+    <div class="row">
+    <div class="col-6 justify-content-center"><a href="{{route('cluster.create')}}" class="text-decoration-none text-white col-auto "><h4 id="btn01" class="text-center border border-primary p-2 d-inline float-right mr-1 rounded">Create Now</h4></a></div> 
+    <div class="col-6 justify-content-center"><a href="/cluster/join" class="text-decoration-none text-white col-auto "><h4 id="btn01" class="text-center border border-danger p-2 d-inline float-left ml-1 rounded">Join Now</h4></a></div> 
+    </div>
     </div>
     </div>
 </div>

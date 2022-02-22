@@ -32,12 +32,12 @@
             <form class="login" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="formGroup">
-                    <input type="email" placeholder="Email ID" name="email" value="{{ old('email') }}" required
-                        autocomplete="email" autofocus>   
+                    <input type="email" placeholder="Email ID" name="email"  required
+                         autofocus>   
                 </div>
                 <div class="formGroup">
                     <input type="password" id="password" placeholder="Password" name="password" required
-                        autocomplete="current-password">    
+                        >    
                 </div>
                 <div class="checkBox">
                     <input type="checkbox" name="remember" id="checkbox">
