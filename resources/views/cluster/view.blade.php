@@ -60,7 +60,19 @@
     <div class="row justify-content-center d-flex flex-column">
         <div class="cluster_heading text-white py-2 rounded">
             <div class=" fw-bold h1 d-inline text-primary" id="cluster_name_heading">{{$data[0][0]->name}}</div>
-            <div class="  fw-bold h4 d-inline text-white float-right fst-italic" id="creater_name">{{$data[0][0]->user_name}}</div> 
+            <div class="dropdown nav navbar-nav navbar-right d-inline float-right">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        
+                        <span class="d-none d-sm-inline mx-1"><i class="fa-solid fa-ellipsis-vertical fs-5"></i></span>
+                    </a>         
+                    <ul class="dropdown-menu dropdown-menu-dark  shadow text-white bg-dark" aria-labelledby="dropdownUser1">
+                        <li> <a class="dropdown-item text-white bg-dark" href="/cluster/leaveCluster/{{$data[0][0]->id}}">
+                                        {{ __('leave cluster') }}
+                                    </a>
+                        </li>         
+                    </ul>
+                </div>
+            <div class="  fw-bold h4 d-inline text-white float-right fst-italic mx-2" id="creater_name">{{$data[0][0]->user_name}}</div> 
             <div class="des text-white">
                 <h5 class="d-inline fst-italic ">{{$data[0][0]->section}}</h5>
   

@@ -34,6 +34,7 @@ Route::prefix('cluster/')->group(function(){
     Route::get('join','ClusterController@JoinNow');
     Route::get('to_do_list','ClusterController@showToDoList');
     Route::get('removeFromToDo/{id}','ClusterController@removeFromToDo');
+    Route::get('leaveCluster/{id}','ClusterController@leaveCluster');
     
     /*****post requests */
     Route::post('ajaxMessageSend', 'ClusterController@ajaxMessageSend');

@@ -242,6 +242,16 @@ class ClusterController extends Controller
         echo json_encode(['Code' => 200]);
 
      }
-
+ /*******
+     * removeFromToDo function will remove the item from the to-do list as per user request
+     */
+    public function leaveCluster($cluster_id){
+        $user = Auth::id();
+        $deleted_record = DB::table('clusters_users')
+                    ->where('clusters_users.cluster_id',$cluster_id)
+                    ->where('clusters_users.invited_user',$user)
+                    ->delete();
+        return redirect('/cluster');
+    }
 
 }
