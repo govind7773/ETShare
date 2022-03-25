@@ -1,6 +1,7 @@
 .create_card{
-    background-color: black;
+    background-color: #100f0f;
     color: white;
+    box-shadow: 5px 5px 6px 1px black;
 }
 #cname{
     background-color: transparent;

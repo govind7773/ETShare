@@ -30,12 +30,16 @@ Route::prefix('cluster/')->group(function(){
 // all post and get requests will be handled here
     Route::get('downloadFileContent/{id}','ClusterController@downloadFileContent');
     Route::get('removeFile/{id}','ClusterController@removeFile');
+    Route::get('addToDo/{id}','ClusterController@addFileInToDoList');
     Route::get('join','ClusterController@JoinNow');
-
+    Route::get('to_do_list','ClusterController@showToDoList');
+    Route::get('removeFromToDo/{id}','ClusterController@removeFromToDo');
+    
     /*****post requests */
     Route::post('ajaxMessageSend', 'ClusterController@ajaxMessageSend');
     Route::post('joinClusterNow','ClusterController@joinClusterNow');
-
+    Route::post('inviteMail','ClusterController@inviteMail');
+    
 });
 Route::resource('cluster','ClusterController');
 

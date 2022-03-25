@@ -19,6 +19,16 @@
                     <div>
                         <h3 class="text-center">{{$data[0][0]->share_id}}</h3>
                     </div>
+                    <h5 class="text-center">OR</h5>
+                    <div>
+                        <form id="inviteUser" action="">
+                            @csrf
+                            <input type="text" class="form-control" name="userName" id="userName" placeholder="Enter User Name here.." required>      
+                            <input class="form-control" type="text"  name="userEmail" id="userEmail"  required placeholder="Enter Email Address..">
+                            <input readonly id="cluster_id" type="text" value="{{$data[0][0]->id}}" class="hidden" name="cluster_id" hidden>
+                            <button type="submit" id="" class="btn btn01 text-white border border-success float-right col-auto mx-1">{{'Invite Now'}}</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,15 +59,16 @@
 <div class="container ">
     <div class="row justify-content-center d-flex flex-column">
         <div class="cluster_heading text-white py-2 rounded">
-            <div class="my-4 fw-bold mx-3 h1 d-inline text-primary">{{$data[0][0]->name}}</div>
-            <a href="#" class="btn btn02 btn-raised float-right ml-1 text-white border border-danger" data-toggle="modal" data-target="#view_members">View Members</a>
-            <a href="#" class="btn btn01 btn-raised float-right ml-1 text-white border border-success" data-toggle="modal" data-target="#share_cluster">Share</a>
-            <div class="des p-2 text-white">
-            <h4 class="d-inline fst-italic ml-3">{{$data[0][0]->section}}</h4>
-            <h4 class="d-inline float-right fst-italic mr-3">{{$data[0][0]->user_name}}</h4>    
+            <div class=" fw-bold h1 d-inline text-primary" id="cluster_name_heading">{{$data[0][0]->name}}</div>
+            <div class="  fw-bold h4 d-inline text-white float-right fst-italic" id="creater_name">{{$data[0][0]->user_name}}</div> 
+            <div class="des text-white">
+                <h5 class="d-inline fst-italic ">{{$data[0][0]->section}}</h5>
+  
+            <a href="#" class="btn btn01 btn-raised float-right ml-1 text-white border border-success" data-toggle="modal" data-target="#view_members">View Members</a>
+            <a href="#" class="btn btn03 btn-raised float-right ml-1 text-white border border-primary" data-toggle="modal" data-target="#share_cluster">Share</a>
             </div>
         </div>
-        <div class="py-3 my-3  shadow-lg rounded" id="input_box">
+        <div class="py-3 shadow-lg rounded" id="input_box">
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -68,26 +79,28 @@
                 </div>
                 @endif
             <form id="message_form" action="/cluster/ajaxMessageSend" method="POST" enctype="multipart/form-data">
-            @csrf         
-            <input type="text" class="form-control" name="message" id="message" placeholder="Enter text here.." required>
-            <div class="row mx-1">
-                <input class="form-control col-4" type="file"  name="input_file" id="input_file" multiple required>
-                <input readonly id="sender" type="text" value="{{auth()->id()}}" class="hidden" name="sender" hidden>
-                <input readonly id="cluster_id" type="text" value="{{$data[0][0]->id}}" class="hidden" name="cluster_id" hidden>
-                <button type="submit" id="send_message" class="btn btn01 text-white border border-success float-right col-auto">{{'Send'}}</button>
-            </div>
+                @csrf    
+                <input type="text" class="form-control" name="message" id="message" placeholder="Enter text here.." required>     
+                <div class="row mx-1">    
+                    <input class="form-control col-4 mx-1" type="file"  name="input_file" id="input_file" multiple required>
+                    <input readonly id="sender" type="text" value="{{auth()->id()}}" class="hidden" name="sender" hidden>
+                    <input readonly id="cluster_id" type="text" value="{{$data[0][0]->id}}" class="hidden" name="cluster_id" hidden>
+                    <button type="submit" id="send_message" class="btn btn01 text-white border border-success float-right col-auto mx-1">{{'Send'}}</button>
+                </div>
             </form>
         </div>
-        <div id="content_box">
+        <?php $i = 0; ?>
         @foreach($data[1] as $d)
-        <div class="cluster_heading text-white py-4 my-2 rounded px-2">
+        <div class="message_heading text-white py-4 my-2 rounded px-2">
             <div class="my-0 ">
-            <p class="d-inline border p-1" >{{$d->sender_name}}</p>
+            <p class="d-inline border p-1 rounded" >{{$d->sender_name}}</p>
             <p class="d-inline float-right my-0" style="color: #cbd1d1;">{{$d->create_time}}</p>
             </div>
             <div class="my-2">
-            <p class="d-inline fst-italic" style="color: #cbd1d1;">{{$d->message}}</p>
+            <p class="d-inline fst-italic message_text" style="color: #cbd1d1;" >{{$d->message}}</p>
             <p class="d-inline float-right fst-italic">
+                <button class="to_do_btn btn"  onclick="myFunction({{$d->id}})"><i class="fa-solid fa-list-check fs-5"></i></button>
+
                 <a href="/cluster/downloadFileContent/{{$d->content}}" id="downloadFile" class="text-decoration-none">Attachment  
                     <span class="h3 mx-2"><i class="fas fa-file-download"></i> </span></a>
                 @if(Auth::user()->id == $d->sender_id)
@@ -97,8 +110,9 @@
             </p>    
             </div>
         </div>
+        <?php $i++; ?>
         @endforeach
-        </div>
+       
     </div>
 </div>
 @endsection

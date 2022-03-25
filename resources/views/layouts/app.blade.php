@@ -41,7 +41,7 @@
 <nav class="navbar-expand-sm navbar navbar-dark sticky-top navbar-inverse" id="top_nav">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand fs-4 py-0 px-3 text-white" href="#">ETShare <i class="fa-solid fa-bars text-white pl-3" id="bar_button"></i></a>
+            <a class="navbar-brand fs-4 py-0 px-3 text-white" style="text-shadow: 2px 2px #7473b6;" href="#">ETShare <i class="fa-solid fa-bars text-white pl-3" id="bar_button"></i></a>
         </div>
         <div class="dropdown nav navbar-nav navbar-right">
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -89,6 +89,11 @@
                     <li>
                         <a href="/cluster" class="nav-link px-0 align-middle">
                         <i class="fa fa-list"></i> <span class="ms-1 d-sm-inline">Clusters</span> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/cluster/to_do_list" class="nav-link align-middle px-0">
+                        <i class="fa-solid fa-list-check"></i><span class="ms-1 d-sm-inline">To-Do</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link align-middle px-0">

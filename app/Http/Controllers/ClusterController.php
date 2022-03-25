@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
+use Mail;
+
 class ClusterController extends Controller
 {
     public function __construct()
@@ -127,10 +129,10 @@ class ClusterController extends Controller
      * below function is used to handaled ajax request to download file content from the application
      */
     public function downloadFileContent($fname){
-
-        $filepath = public_path()."/uploadedFile/".$fname;
-        return Response()->download($filepath);
-
+        
+            $filepath = public_path()."/uploadedFile/".$fname;
+            return Response()->download($filepath);
+        
     }
 
 
@@ -177,5 +179,69 @@ class ClusterController extends Controller
                         ]);
         return redirect('/cluster');
     }
+    public function showToDoList(){
+        $user_id = Auth::id();
+        $data=DB::table('to_do_table')
+                ->selectRaw('content_clusters.id as id,content_clusters.message as message,content_clusters.content as content, content_clusters.created_at as create_time,users.name as sender_name, users.id as sender_id')
+                ->leftJoin('content_clusters','content_clusters.id','=','to_do_table.item_id')
+                ->leftJoin('users','content_clusters.sender_id','=','users.id')
+                ->where('to_do_table.user_id',$user_id)
+                ->get();
+        // return $data;
+        return view('cluster.todo',['data' => $data]);
+    }
+    /*********
+     * addFileInToDoList function will add the selected file in to-do list
+     */
+    public function addFileInToDoList($file_id){
+        $user_id = Auth::id();
+        $insertdata = DB::table('to_do_table')
+                            ->insert([
+                                'user_id' => $user_id, 
+                                'item_id' => $file_id
+                            ]);
+        if($insertdata){
+            echo json_encode(['code' => 200]);
+        }else{
+            echo json_encode(['code' => 400]);
+        }
+        
+    }
+
+    /*******
+     * removeFromToDo function will remove the item from the to-do list as per user request
+     */
+    public function removeFromToDo($file_id){
+        $deleted_file = DB::table('to_do_table')
+                    ->where('to_do_table.item_id',$file_id)
+                    ->delete();
+        return redirect('/cluster/to_do_list');
+    }
+    
+    /********
+     * below function will be used to send invite mail
+     */
+    public function inviteMail(Request $request) {
+        $input = $request->all();
+        // return $input;
+        $name = $input['userName'];
+        $email = $input['userEmail'];
+        $cluster = $input['cluster_id'];
+        // dd($email);
+        $codeData= DB::table('clusters')
+                    ->select('clusters.unique_id as inviteCode')
+                    ->where('clusters.id',$cluster)
+                    ->get();
+                    
+        $data = array('name'=>$name,'inviteCode'=>$codeData[0]->inviteCode); 
+        Mail::send('cluster.mail', $data, function($message) use ($email, $name) {
+           $message->to($email, $name)->subject
+              ('Invite Mail');
+           $message->from('etshareapplication@gmail.com','ETShare');
+        });
+        echo json_encode(['Code' => 200]);
+
+     }
+
 
 }

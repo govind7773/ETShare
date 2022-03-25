@@ -9,7 +9,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
                 <div class="card create_card">
-                    <div class="card-header font-large-1 border-bottom"><h1 class="text-center">Create Cluster</h1></div>
+                    <div class="card-header font-large-1 border-bottom"><h1 class="text-center">Join Cluster Now</h1></div>
                     <div class="card-body">
                         @if ($errors->any())
                             <div class="alert alert-danger">
